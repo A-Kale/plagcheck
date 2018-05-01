@@ -1,13 +1,14 @@
-#include <stdio.h
+#include <stdio.h>
+#include <string.h>
 
 int main()
 {
-	FILE myFileHandle;
+	FILE *myFileHandle;
 	
 	myFileHandle = fopen("Project3TestFiles/test1.txt", "r");
 	
 	int theCounter; // Counts the number of times the appears within the file.
-	str the[4]; = 'the';
+	char the[4] = "the";
 	
 	
 	
