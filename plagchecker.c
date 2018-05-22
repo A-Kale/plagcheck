@@ -1,53 +1,62 @@
 #include <stdio.h>
 #include <string.h>
 
-struct Word {
-	char name[4];
+struct Words {
+	char name[50];
 	int counter;
 };
 
+struct Library {
+	char words[500];
+}
+
 int main()
 {
+	struct Library lib; // Will be using this to store all the words found.
+	
 	FILE *myFileHandle;
 	
 	myFileHandle = fopen("Project3TestFiles/test1.txt", "r");
 	
-	int theCounter; // Counts the number of times the appears within the file.
-	
-	struct Word The; // Delcares The of the type Word.
-	strcpy(The.name, "the");
-	The.counter = 0;
-	
 	if (myFileHandle != NULL)
 	{
-		char textLine[270]; // This is where I will temporarily store the lines that I get from the text.
-		
-		while (fgets(textLine, 270, myFileHandle) != NULL)
+		char textLine[500];
+		while(fgets((textLine), sizeof(textLine), myFileHandle) != NULL)
 		{
-			printf("Line read is: %s\n", textLine);
-			for (int i=0; i<strlen(textLine); i++)
+			const char s[15] = ",-;: '.\"";
+			char *temp;
+			temp = strtok(textLine, s);
+			while(temp != NULL)
 			{
-				if (textLine[i] != EOF)
-				{
-					if (textLine[i] == 116 || textLine[i] == 84)
-					{
-						if (textLine[i+1] == 104)
-						{
-							if (textLine[i+2] == 101)
-							{
-								if(textLine[i+3] == 32)
-								{
-									The.counter++;
-									printf("(%c %c %c) ", textLine[i+4], textLine[i+5], textLine[i+6]);
-								}
-							}
-						}
-					}
-				}
+				printf("%s\n", temp);
+				arraySearch(textLine
+				temp = strtok(NULL, s);
 			}
-			memset(textLine, '0', strlen(textLine));
 		}
-		fclose(myFileHandle);
 	}
-	printf("the number of 'the's inside of this file is %d.\n", The.counter);
+}
+
+int arraySearch(char *str, char *word)
+{
+	int i=0; j=0; counter=0;
+	
+	while (i<strlen(str))
+	{
+		if (str[i] == word[j])
+		{
+			i++;
+			j++;
+			if(i == strlen(word))
+			{
+				j++;
+				i = j;
+				j = 0;
+			}
+		}
+		else
+		{
+			i++;
+			j++;
+		}
+	}
 }
